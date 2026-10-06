@@ -1,0 +1,37 @@
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <div class="envoltorio fila">
+    <a routerLink="/" class="marca" aria-label="Víctor Alonso Gómez, inicio">
+      <svg class="marca-nodo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <path d="M89.6 49.3C90.4 60.6 81.6 76.4 71.5 82.7C61.3 89.1 38.8 93.3 28.8 87.2C18.8 81.1 11.4 58.4 11.3 46.2C11.2 34 19.2 19.2 28.5 14C37.7 8.7 56.4 9 66.6 14.9C76.8 20.8 88.8 38 89.6 49.3Z" />
+      </svg>
+      <span>Víctor Alonso</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a routerLink="/" fragment="proyectos">Proyectos</a></li>
+        <li><a routerLink="/" fragment="trayectoria">Trayectoria</a></li>
+        <li><a routerLink="/blog" routerLinkActive="activo" ariaCurrentWhenActive="page">Blog</a></li>
+        <li><a routerLink="/" fragment="contacto" class="nav-contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="pie">
+  <div class="envoltorio fila">
+    <p><span class="mono">FIN</span> · © {{ anio }} {{ sitio.nombre }}</p>
+    <ul>
+      <li><a [href]="contacto.github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      @if (contacto.linkedin) {
+        <li><a [href]="contacto.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      }
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>

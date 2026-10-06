@@ -1,0 +1,77 @@
+.cabeza { padding-top: var(--e-4); max-width: 50rem; }
+.regla a { text-decoration: none; }
+h1 { margin-top: var(--e-2); font-size: var(--t-3); letter-spacing: -0.02em; }
+.entradilla { margin-top: var(--e-3); font-size: var(--t-1); line-height: 1.45; color: var(--c-suave); max-width: 48ch; }
+.datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.8rem;
+  margin-top: var(--e-3);
+  padding-bottom: var(--e-3);
+  border-bottom: 1px solid var(--c-linea);
+  font-size: var(--t--1);
+  color: var(--c-suave);
+}
+time { font-family: var(--f-mono); }
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 44rem) 1fr;
+  gap: var(--e-4);
+  margin-top: var(--e-4);
+}
+.prosa { grid-column: 1; grid-row: 1; }
+.indice {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+  font-size: var(--t--1);
+}
+.indice ol { list-style: none; padding: 0; border-left: 1.5px solid var(--c-linea); }
+.indice li a { display: block; padding: 0.3rem 0 0.3rem 0.9rem; color: var(--c-suave); text-decoration: none; }
+.indice li a:hover { color: var(--c-acento); }
+.etiqueta {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--f-mono);
+  font-size: var(--t--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-acento);
+}
+.cargando { color: var(--c-suave); }
+
+.autor {
+  max-width: 44rem;
+  margin-top: var(--e-4);
+  padding: var(--e-3);
+  border-radius: var(--radio-org);
+  background: var(--c-acento-suave);
+}
+.autor a { font-weight: 600; }
+
+.vecinos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--e-3);
+  margin-top: var(--e-4);
+  padding-top: var(--e-3);
+  border-top: 1px solid var(--c-linea);
+}
+.vecino { font-family: var(--f-display); font-size: var(--t-1); line-height: 1.2; text-decoration: none; }
+.vecino:hover { color: var(--c-acento); }
+.derecha { grid-column: 2; text-align: right; }
+.todo { grid-column: 1 / -1; font-weight: 550; color: var(--c-acento); }
+
+@media (max-width: 60rem) {
+  .cuerpo { grid-template-columns: minmax(0, 1fr); }
+  .indice { position: static; grid-row: 1; grid-column: 1; }
+  .prosa { grid-row: 2; }
+}
+@media (max-width: 40rem) {
+  .vecinos { grid-template-columns: 1fr; }
+  .derecha { grid-column: 1; text-align: left; }
+}

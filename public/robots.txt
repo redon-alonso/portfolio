@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://victor-alonso.vercel.app/sitemap.xml

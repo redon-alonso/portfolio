@@ -1,0 +1,147 @@
+<section class="heroe envoltorio" aria-labelledby="titulo-inicio">
+  <div class="heroe-texto">
+    <p class="regla"><b>‹perfil›</b> ::= desarrollador web · analista</p>
+    <h1 id="titulo-inicio">
+      <span class="nombre">Víctor Alonso Gómez</span>
+      <span class="lema">Software para problemas que tienen <em>gramática</em>.</span>
+    </h1>
+    <p class="intro">
+      Tres años desarrollando en producción para la mayor aseguradora de España con <strong>Adding Technology</strong>.
+      Desde 2026, transformación tecnológica y desarrollo interno en una gran empresa. Lo que de verdad me mueve:
+      los <strong>lenguajes formales</strong>, <strong>analizar sistemas</strong> y los problemas que no caben en un tutorial.
+    </p>
+    <div class="acciones">
+      <a class="boton" routerLink="/" fragment="proyectos">Ver proyectos <span aria-hidden="true">↓</span></a>
+      <a class="boton secundario" routerLink="/blog">Leer el blog</a>
+    </div>
+  </div>
+  <app-gramatica-perfil class="heroe-figura" />
+</section>
+
+<app-arista />
+
+<!-- ============================ PROYECTOS ============================ -->
+<section id="proyectos" class="envoltorio seccion" aria-labelledby="titulo-proyectos">
+  <header class="cabeza-seccion">
+    <p class="regla"><b>‹proyectos›</b> ::= Transcriptor | MotorPacking</p>
+    <h2 id="titulo-proyectos">Lo que he construido</h2>
+  </header>
+
+  <article class="proyecto proyecto-principal revela">
+    <a class="captura" [routerLink]="['/proyectos', transcriptor.slug]" tabindex="-1" aria-hidden="true">
+      @if (transcriptor.imagen; as img) {
+        <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt"
+             sizes="(min-width: 64rem) 58vw, 100vw" />
+      }
+    </a>
+    <div class="proyecto-texto">
+      <p class="num">01</p>
+      <h3><a [routerLink]="['/proyectos', transcriptor.slug]">{{ transcriptor.nombre }}</a></h3>
+      <p class="resumen">{{ transcriptor.resumen }}</p>
+      <ul class="etiquetas" role="list">
+        @for (e of transcriptor.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+      </ul>
+      <p class="enlaces">
+        <a [routerLink]="['/proyectos', transcriptor.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
+        <a [href]="transcriptor.demo" target="_blank" rel="noopener noreferrer">Probarlo</a>
+        @if (transcriptor.codigo) {
+          <a [href]="transcriptor.codigo" target="_blank" rel="noopener noreferrer">Código</a>
+        }
+      </p>
+    </div>
+  </article>
+
+  <article class="proyecto proyecto-secundario revela">
+    <div class="proyecto-texto">
+      <p class="num">02</p>
+      <h3><a [routerLink]="['/proyectos', packing.slug]">{{ packing.nombre }}</a></h3>
+      <p class="resumen">{{ packing.resumen }}</p>
+      <p class="problema">{{ packing.problema }}</p>
+      <ul class="etiquetas" role="list">
+        @for (e of packing.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+      </ul>
+      <p class="enlaces">
+        <a [routerLink]="['/proyectos', packing.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
+        <a [href]="packing.demo" target="_blank" rel="noopener noreferrer">Demo</a>
+        @if (packing.codigo) {
+          <a [href]="packing.codigo" target="_blank" rel="noopener noreferrer">Código</a>
+        }
+      </p>
+    </div>
+    <div class="ilustracion"><app-ilustracion-packing /></div>
+  </article>
+</section>
+
+<app-arista [espejo]="true" />
+
+<!-- ============================ CÓMO TRABAJO ============================ -->
+<section class="envoltorio seccion" aria-labelledby="titulo-principios">
+  <header class="cabeza-seccion">
+    <p class="regla"><b>‹método›</b> ::= modelo → código → producción</p>
+    <h2 id="titulo-principios">Cómo trabajo</h2>
+  </header>
+  <ol class="principios" role="list">
+    @for (p of principios; track p.titulo; let i = $index) {
+      <li class="revela">
+        <span class="indice" aria-hidden="true">0{{ i + 1 }}</span>
+        <h3>{{ p.titulo }}</h3>
+        <p>{{ p.texto }}</p>
+      </li>
+    }
+  </ol>
+</section>
+
+<app-arista />
+
+<!-- ============================ TRAYECTORIA ============================ -->
+<section id="trayectoria" class="envoltorio seccion" aria-labelledby="titulo-trayectoria">
+  <header class="cabeza-seccion">
+    <p class="regla"><b>‹trayectoria›</b> ::= experiencia* formación*</p>
+    <h2 id="titulo-trayectoria">De dónde vengo</h2>
+  </header>
+  <div class="dos-columnas">
+    <div>
+      <h3 class="subtitulo">Experiencia</h3>
+      <app-linea-tiempo [etapas]="trayectoria" />
+    </div>
+    <div>
+      <h3 class="subtitulo">Formación</h3>
+      <app-linea-tiempo [etapas]="formacion" />
+    </div>
+  </div>
+</section>
+
+<app-arista [espejo]="true" />
+
+<!-- ============================ BLOG ============================ -->
+<section class="envoltorio seccion" aria-labelledby="titulo-blog">
+  <header class="cabeza-seccion con-accion">
+    <div>
+      <p class="regla"><b>‹blog›</b> ::= desarrollo+</p>
+      <h2 id="titulo-blog">Escribo sobre lo que construyo</h2>
+    </div>
+    <a routerLink="/blog" class="boton secundario">Todo el blog <span aria-hidden="true">→</span></a>
+  </header>
+  <app-lista-articulos [articulos]="ultimos" />
+</section>
+
+<!-- ============================ CONTACTO ============================ -->
+<section id="contacto" class="contacto" aria-labelledby="titulo-contacto">
+  <div class="envoltorio">
+    <p class="regla"><b>‹contacto›</b> ::= problema "·" conversación</p>
+    <h2 id="titulo-contacto">¿Tienes un problema con <em>forma rara</em>?</h2>
+    <p>
+      Me interesan los sistemas que hay que entender antes de tocar: reglas de negocio enrevesadas, lenguajes,
+      optimización o herramientas internas que nadie se atreve a rehacer. Hablemos.
+    </p>
+    <div class="acciones">
+      @if (contacto.email) {
+        <a class="boton invertido" [href]="'mailto:' + contacto.email">Escríbeme</a>
+      }
+      @if (contacto.linkedin) {
+        <a class="boton invertido" [href]="contacto.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      }
+      <a class="boton invertido" [class.secundario]="contacto.email || contacto.linkedin" [href]="contacto.github" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+</section>

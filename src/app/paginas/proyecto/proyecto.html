@@ -1,0 +1,67 @@
+@if (proyecto(); as p) {
+  <article class="envoltorio">
+    <header class="cabeza">
+      <p class="regla"><a routerLink="/" fragment="proyectos">‹proyectos›</a> ::= <b>{{ p.nombre }}</b></p>
+      <h1>{{ p.nombre }}</h1>
+      <p class="resumen">{{ p.resumen }}</p>
+      <p class="enlaces">
+        <a class="boton" [href]="p.demo" target="_blank" rel="noopener noreferrer">Probar la demo <span aria-hidden="true">↗</span></a>
+        @if (p.codigo) {
+          <a class="boton secundario" [href]="p.codigo" target="_blank" rel="noopener noreferrer">Ver el código</a>
+        }
+      </p>
+      @if (p.aviso) { <p class="aviso">{{ p.aviso }}</p> }
+    </header>
+
+    <figure class="figura">
+      @if (p.imagen; as img) {
+        <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt" priority sizes="(min-width: 72rem) 72rem, 100vw" />
+      } @else {
+        <div class="ilustracion"><app-ilustracion-packing /></div>
+      }
+    </figure>
+
+    <div class="cuerpo">
+      <aside class="ficha">
+        <h2 class="solo-lectores">Ficha</h2>
+        <p class="etiqueta-ficha">El problema</p>
+        <p>{{ p.problema }}</p>
+        <p class="etiqueta-ficha">Temas</p>
+        <ul class="etiquetas" role="list">
+          @for (e of p.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+        </ul>
+      </aside>
+
+      <div class="secciones">
+        @for (s of p.secciones; track s.titulo) {
+          <section class="revela">
+            <h2>{{ s.titulo }}</h2>
+            @for (par of s.parrafos; track $index) { <p>{{ par }}</p> }
+            @if (s.lista) {
+              <ul>
+                @for (item of s.lista; track $index) { <li>{{ item }}</li> }
+              </ul>
+            }
+          </section>
+        } @empty {
+          <section class="preparacion">
+            <h2>Caso de estudio en preparación</h2>
+            <p>
+              Estoy documentando las decisiones de este proyecto: cómo se modelan las restricciones de la carga,
+              qué algoritmo decide la colocación y cómo se miden los resultados. Mientras tanto, puedes ver la demo.
+            </p>
+          </section>
+        }
+      </div>
+    </div>
+
+    @if (otro(); as o) {
+      <nav class="siguiente" aria-label="Otro proyecto">
+        <p class="etiqueta-ficha">Otro proyecto</p>
+        <a [routerLink]="['/proyectos', o.slug]">{{ o.nombre }} <span aria-hidden="true">→</span></a>
+      </nav>
+    }
+  </article>
+} @else {
+  <app-no-encontrada />
+}

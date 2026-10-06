@@ -1,0 +1,45 @@
+.cabeza { padding-top: var(--e-4); max-width: 52rem; }
+.regla a { text-decoration: none; }
+h1 { margin-top: var(--e-2); font-size: var(--t-4); letter-spacing: -0.03em; }
+.resumen { margin-top: var(--e-3); font-size: var(--t-1); line-height: 1.45; max-width: 46ch; }
+.enlaces { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--e-3); }
+.aviso { margin-top: var(--e-1); font-size: var(--t--1); color: var(--c-suave); }
+
+.figura { margin-top: var(--e-4); }
+.figura img { border-radius: 1.4rem; border: 1px solid var(--c-linea); box-shadow: var(--sombra); }
+.ilustracion { padding: var(--e-4); border-radius: var(--radio-org); background: var(--c-cobalto-suave); max-width: 46rem; margin-inline: auto; }
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  gap: var(--e-4);
+  margin-top: var(--e-5);
+}
+.ficha { position: sticky; top: 6rem; align-self: start; color: var(--c-suave); font-size: var(--t--1); }
+.ficha p + .etiqueta-ficha { margin-top: var(--e-3); }
+.etiqueta-ficha {
+  margin-bottom: 0.4rem;
+  font-family: var(--f-mono);
+  font-size: var(--t--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-acento);
+}
+.etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; list-style: none; }
+
+.secciones { max-width: 44rem; }
+.secciones section + section { margin-top: var(--e-4); }
+.secciones h2 { font-size: var(--t-3); }
+.secciones p { margin-top: var(--e-2); font-size: clamp(1.03rem, 0.98rem + 0.25vw, 1.15rem); line-height: 1.75; }
+.secciones ul { margin-top: var(--e-2); padding-left: 1.2em; }
+.secciones li + li { margin-top: 0.5em; }
+.secciones li::marker { color: var(--c-acento); }
+.preparacion { padding: var(--e-3); border: 1.5px dashed var(--c-linea); border-radius: var(--radio); }
+
+.siguiente { margin-top: var(--e-5); padding-top: var(--e-3); border-top: 1px solid var(--c-linea); }
+.siguiente a { font-family: var(--f-display); font-size: var(--t-3); text-decoration: none; }
+
+@media (max-width: 56rem) {
+  .cuerpo { grid-template-columns: 1fr; gap: var(--e-3); }
+  .ficha { position: static; }
+}

@@ -1,0 +1,109 @@
+/* ---- Héroe ---- */
+.heroe {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: var(--e-3);
+  padding-top: var(--e-4);
+}
+.nombre {
+  display: block;
+  margin-top: var(--e-2);
+  font-family: var(--f-texto);
+  font-size: var(--t-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lema { display: block; margin-top: 0.6rem; font-size: var(--t-4); line-height: 0.95; letter-spacing: -0.03em; }
+.lema em { color: var(--c-acento); }
+.intro { margin-top: var(--e-3); max-width: 56ch; color: var(--c-suave); }
+.intro strong { color: var(--c-tinta); font-weight: 600; }
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: var(--e-3); }
+
+/* ---- Secciones ---- */
+.seccion { padding-block: var(--e-2); }
+.cabeza-seccion { margin-bottom: var(--e-4); }
+.cabeza-seccion h2 { margin-top: 0.6rem; font-size: var(--t-3); }
+.con-accion { display: flex; justify-content: space-between; align-items: end; gap: var(--e-2); flex-wrap: wrap; }
+
+/* ---- Proyectos ---- */
+.proyecto { display: grid; gap: var(--e-3) var(--e-4); align-items: center; }
+.proyecto-principal { grid-template-columns: 1.45fr 1fr; }
+.proyecto-secundario { grid-template-columns: 1fr 1.1fr; margin-top: var(--e-5); }
+.captura {
+  display: block;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  border: 1px solid var(--c-linea);
+  box-shadow: var(--sombra);
+  rotate: 1deg;
+  transition: rotate 500ms var(--ease), scale 500ms var(--ease);
+}
+.proyecto-principal:hover .captura { rotate: 0deg; scale: 1.01; }
+.num { font-family: var(--f-mono); font-size: var(--t--1); color: var(--c-acento); }
+.proyecto h3 { font-size: var(--t-3); margin-top: 0.2rem; }
+.proyecto h3 a { text-decoration: none; }
+.resumen { margin-top: var(--e-2); font-size: var(--t-1); line-height: 1.45; }
+.problema { margin-top: var(--e-2); color: var(--c-suave); }
+.etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--e-2); padding: 0; list-style: none; }
+.enlaces { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-top: var(--e-3); font-weight: 550; }
+.caso { color: var(--c-acento); }
+.ilustracion {
+  padding: var(--e-3);
+  border-radius: var(--radio-org);
+  background: var(--c-cobalto-suave);
+}
+
+/* ---- Principios ---- */
+.principios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--e-3);
+  padding: 0;
+  list-style: none;
+}
+.principios li { padding-top: var(--e-2); border-top: 2px solid var(--c-tinta); }
+.principios li:nth-child(2) { margin-top: var(--e-4); }
+.principios li:nth-child(3) { margin-top: calc(var(--e-4) * 2); }
+.indice { font-family: var(--f-display); font-size: var(--t-3); line-height: 1; color: var(--c-acento); }
+.principios h3 { margin-top: var(--e-1); font-size: var(--t-2); }
+.principios p { margin-top: var(--e-1); color: var(--c-suave); }
+
+/* ---- Trayectoria ---- */
+.dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-4); }
+.subtitulo {
+  margin-bottom: var(--e-3);
+  font-family: var(--f-mono);
+  font-size: var(--t--1);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-suave);
+}
+
+/* ---- Contacto ---- */
+.contacto {
+  margin-top: var(--e-5);
+  padding-block: var(--e-5);
+  background: var(--c-tinta);
+  color: var(--c-fondo);
+  border-radius: 2.5rem 2.5rem 0 0;
+}
+.contacto .regla { color: color-mix(in oklch, var(--c-fondo) 65%, transparent); }
+.contacto h2 { margin-top: var(--e-2); font-size: var(--t-4); max-width: 14ch; }
+.contacto h2 em { color: var(--c-acento); }
+.contacto p:not(.regla) { margin-top: var(--e-3); max-width: 54ch; color: color-mix(in oklch, var(--c-fondo) 80%, transparent); }
+.invertido { background: var(--c-fondo); color: var(--c-tinta); border-color: var(--c-fondo); }
+.invertido.secundario { background: transparent; color: var(--c-fondo); }
+
+/* ---- Adaptable ---- */
+@media (max-width: 64rem) {
+  .heroe, .proyecto-principal, .proyecto-secundario { grid-template-columns: 1fr; }
+  .heroe-figura { max-width: 34rem; justify-self: center; width: 100%; }
+  .proyecto-secundario .ilustracion { order: -1; }
+  .principios { grid-template-columns: 1fr; }
+  .principios li:nth-child(n) { margin-top: 0; }
+}
+@media (max-width: 48rem) {
+  .dos-columnas { grid-template-columns: 1fr; }
+}
