@@ -180,6 +180,57 @@ export const PROYECTOS: Proyecto[] = [
       },
     ],
   },
+  {
+    slug: 'presupuestos-pvc',
+    nombre: 'Presupuestos PVC',
+    resumen:
+      'Presupuesta ventanas de PVC a medida desde el despiece real: de las medidas al material, del material al coste y del coste al precio, con el margen a la vista.',
+    problema:
+      'En carpintería de PVC el precio de una ventana sale de su despiece: metros de perfil y refuerzo, metros cuadrados de vidrio, herrajes y horas de taller. Hacerlo a mano es lento, y al negociar una rebaja es fácil quedarse sin margen sin darse cuenta.',
+    etiquetas: ['Modelado de negocio', 'Motor de cálculo', 'Vue 3', 'Serverless', 'Tests'],
+    demo: 'https://budgeter200.vercel.app/#/presupuesto/demo',
+    codigo: 'https://github.com/redon-alonso/budgeter200',
+    imagen: {
+      src: '/img/presupuestos-pvc.png',
+      ancho: 1440,
+      alto: 900,
+      alt: 'Presupuestos PVC: configurador de una ventana oscilobatiente con su dibujo a escala, coste y precio por unidad, y panel de rentabilidad con beneficio, rebaja y margen',
+    },
+    secciones: [
+      {
+        titulo: 'Del despiece al precio',
+        parrafos: [
+          'Cada ventana se calcula como en el taller. A partir del ancho, el alto y la serie elegida, el motor obtiene la geometría: el marco y su refuerzo de acero salen del perímetro; las hojas, de la luz entre marcos más el solape (en una corredera, además, las hojas se cruzan en el centro); y el vidrio, de la hoja menos la vista del perfil y las holguras.',
+          'Sobre esa geometría se aplica la realidad del oficio: merma de corte por artículo, un mínimo facturable por paño de vidrio, el suplemento de color solo sobre el perfil y la mano de obra como horas fijas por tipología más horas por metro cuadrado. Las medidas imposibles devuelven un error claro, y una línea errónea no tumba el presupuesto entero.',
+        ],
+      },
+      {
+        titulo: 'Recargo no es margen',
+        parrafos: [
+          'El error más caro al presupuestar es confundir el beneficio sobre el coste con el margen sobre la venta: un 25 % de recargo es solo un 20 % de margen. La aplicación separa los dos conceptos y enseña ambos a la vez, junto al beneficio en euros.',
+          'Con un recargo del 35 % y una rebaja del 5 %, el recargo real baja al 28,3 % y el margen queda en el 22 %. Despejando la cadena de precio, la herramienta calcula la rebaja máxima que se puede conceder sin bajar del margen mínimo —un 12,9 % para no bajar del 15 %— y simula qué pasa si el cliente pide un precio concreto.',
+        ],
+        lista: [
+          'Configurador con dibujo de la ventana a escala y despiece por partidas.',
+          'Catálogo editable con importación desde CSV o Excel en formato español (1.234,56 y separador «;»).',
+          'Versiones del presupuesto, IVA general, reducido de reforma o exento, y PDF listo para el cliente.',
+        ],
+      },
+      {
+        titulo: 'Un motor, dos sitios',
+        parrafos: [
+          'El cálculo es JavaScript puro, sin dependencias de interfaz. La misma lógica funciona en el navegador y en funciones serverless de Vercel (GET /api/catalogo y POST /api/calcular), así que la API y la pantalla dan exactamente el mismo resultado. La API valida cada entrada: rangos de porcentajes, tamaño máximo del presupuesto y códigos de error distintos para una petición mal formada y para unas medidas imposibles.',
+          'Catorce tests con node:test cubren la geometría, la merma, el color, la corredera, la cadena de precio, la rebaja máxima, la importación de CSV y la propia API.',
+        ],
+      },
+      {
+        titulo: 'Lo siguiente',
+        parrafos: [
+          'Es una demo: los precios y presupuestos se guardan en el navegador de cada usuario. Para que un equipo comparta datos, el siguiente paso es sustituir ese guardado por una API con base de datos, sin tocar el motor de cálculo.',
+        ],
+      },
+    ],
+  },
 ];
 
 export interface Principio {

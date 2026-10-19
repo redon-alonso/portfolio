@@ -23,53 +23,38 @@
 <!-- ============================ PROYECTOS ============================ -->
 <section id="proyectos" class="envoltorio seccion" aria-labelledby="titulo-proyectos">
   <header class="cabeza-seccion">
-    <p class="regla"><b>‹proyectos›</b> ::= Transcriptor | MotorPacking</p>
+    <p class="regla"><b>‹proyectos›</b> ::= {{ reglaProyectos }}</p>
     <h2 id="titulo-proyectos">Lo que he construido</h2>
   </header>
 
-  <article class="proyecto proyecto-principal revela">
-    <a class="captura" [routerLink]="['/proyectos', transcriptor.slug]" tabindex="-1" aria-hidden="true">
-      @if (transcriptor.imagen; as img) {
-        <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt"
-             sizes="(min-width: 64rem) 58vw, 100vw" />
+  @for (p of proyectos; track p.slug; let i = $index, par = $even) {
+    <article class="proyecto revela" [class.medios-primero]="par">
+      @if (p.imagen; as img) {
+        <a class="medio captura" [routerLink]="['/proyectos', p.slug]" tabindex="-1" aria-hidden="true">
+          <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt"
+               sizes="(min-width: 64rem) 58vw, 100vw" />
+        </a>
+      } @else if (p.slug === 'motor-packing') {
+        <div class="medio ilustracion"><app-ilustracion-packing /></div>
       }
-    </a>
-    <div class="proyecto-texto">
-      <p class="num">01</p>
-      <h3><a [routerLink]="['/proyectos', transcriptor.slug]">{{ transcriptor.nombre }}</a></h3>
-      <p class="resumen">{{ transcriptor.resumen }}</p>
-      <ul class="etiquetas" role="list">
-        @for (e of transcriptor.etiquetas; track e) { <li class="chip">{{ e }}</li> }
-      </ul>
-      <p class="enlaces">
-        <a [routerLink]="['/proyectos', transcriptor.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
-        <a [href]="transcriptor.demo" target="_blank" rel="noopener noreferrer">Probarlo</a>
-        @if (transcriptor.codigo) {
-          <a [href]="transcriptor.codigo" target="_blank" rel="noopener noreferrer">Código</a>
-        }
-      </p>
-    </div>
-  </article>
-
-  <article class="proyecto proyecto-secundario revela">
-    <div class="proyecto-texto">
-      <p class="num">02</p>
-      <h3><a [routerLink]="['/proyectos', packing.slug]">{{ packing.nombre }}</a></h3>
-      <p class="resumen">{{ packing.resumen }}</p>
-      <p class="problema">{{ packing.problema }}</p>
-      <ul class="etiquetas" role="list">
-        @for (e of packing.etiquetas; track e) { <li class="chip">{{ e }}</li> }
-      </ul>
-      <p class="enlaces">
-        <a [routerLink]="['/proyectos', packing.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
-        <a [href]="packing.demo" target="_blank" rel="noopener noreferrer">Demo</a>
-        @if (packing.codigo) {
-          <a [href]="packing.codigo" target="_blank" rel="noopener noreferrer">Código</a>
-        }
-      </p>
-    </div>
-    <div class="ilustracion"><app-ilustracion-packing /></div>
-  </article>
+      <div class="proyecto-texto">
+        <p class="num">0{{ i + 1 }}</p>
+        <h3><a [routerLink]="['/proyectos', p.slug]">{{ p.nombre }}</a></h3>
+        <p class="resumen">{{ p.resumen }}</p>
+        @if (!par) { <p class="problema">{{ p.problema }}</p> }
+        <ul class="etiquetas" role="list">
+          @for (e of p.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+        </ul>
+        <p class="enlaces">
+          <a [routerLink]="['/proyectos', p.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
+          <a [href]="p.demo" target="_blank" rel="noopener noreferrer">Probarlo</a>
+          @if (p.codigo) {
+            <a [href]="p.codigo" target="_blank" rel="noopener noreferrer">Código</a>
+          }
+        </p>
+      </div>
+    </article>
+  }
 </section>
 
 <app-arista [espejo]="true" />

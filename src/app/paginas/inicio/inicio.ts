@@ -18,8 +18,9 @@ import { LineaTiempo } from '../../componentes/linea-tiempo';
   styleUrl: './inicio.css',
 })
 export default class Inicio {
-  protected readonly transcriptor = PROYECTOS[0];
-  protected readonly packing = PROYECTOS[1];
+  protected readonly proyectos = PROYECTOS;
+  /** «Transcriptor | MotorPacking | …»: los nombres como símbolos de la gramática. */
+  protected readonly reglaProyectos = PROYECTOS.map((p) => p.nombre.replace(/\s+/g, '')).join(' | ');
   protected readonly principios = PRINCIPIOS;
   protected readonly trayectoria = TRAYECTORIA;
   protected readonly formacion = FORMACION;

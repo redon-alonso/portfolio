@@ -33,7 +33,8 @@ const F3 =
 
 <span class="nt">desarrollador</span> <span class="op">::=</span> <span class="t">producción</span><span class="c">{{ '{' }}3 años{{ '}' }}</span> <span class="op">→</span> <span class="t">transformación</span>
 
-<span class="nt">proyectos</span>     <span class="op">::=</span> <span class="t">Transcriptor</span> <span class="op">|</span> <span class="t">MotorPacking</span><span class="cursor"></span></code></pre>
+<span class="nt">proyectos</span>     <span class="op">::=</span> <span class="t">Transcriptor</span> <span class="op">|</span> <span class="t">MotorPacking</span>
+              <span class="op">|</span> <span class="t">PresupuestosPVC</span><span class="cursor"></span></code></pre>
       </div>
       <figcaption class="solo-lectores">
         Mi perfil escrito como una gramática: analista de lenguajes formales, sistemas y problemas complejos, y desarrollador con tres

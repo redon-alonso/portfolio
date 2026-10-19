@@ -27,9 +27,11 @@
 .con-accion { display: flex; justify-content: space-between; align-items: end; gap: var(--e-2); flex-wrap: wrap; }
 
 /* ---- Proyectos ---- */
-.proyecto { display: grid; gap: var(--e-3) var(--e-4); align-items: center; }
-.proyecto-principal { grid-template-columns: 1.45fr 1fr; }
-.proyecto-secundario { grid-template-columns: 1fr 1.1fr; margin-top: var(--e-5); }
+.proyecto { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--e-3) var(--e-4); align-items: center; }
+.proyecto + .proyecto { margin-top: var(--e-5); }
+/* Alterna: en los pares, la imagen va a la izquierda y ocupa más; en los impares, a la derecha. */
+.medios-primero { grid-template-columns: 1.45fr 1fr; }
+.proyecto:not(.medios-primero) .medio { order: 1; }
 .captura {
   display: block;
   border-radius: 1.2rem;
@@ -39,7 +41,7 @@
   rotate: 1deg;
   transition: rotate 500ms var(--ease), scale 500ms var(--ease);
 }
-.proyecto-principal:hover .captura { rotate: 0deg; scale: 1.01; }
+.proyecto:hover .captura { rotate: 0deg; scale: 1.01; }
 .num { font-family: var(--f-mono); font-size: var(--t--1); color: var(--c-acento); }
 .proyecto h3 { font-size: var(--t-3); margin-top: 0.2rem; }
 .proyecto h3 a { text-decoration: none; }
@@ -98,9 +100,9 @@
 
 /* ---- Adaptable ---- */
 @media (max-width: 64rem) {
-  .heroe, .proyecto-principal, .proyecto-secundario { grid-template-columns: 1fr; }
+  .heroe, .proyecto { grid-template-columns: 1fr; }
   .heroe-figura { max-width: 34rem; justify-self: center; width: 100%; }
-  .proyecto-secundario .ilustracion { order: -1; }
+  .proyecto .medio { order: -1; }
   .principios { grid-template-columns: 1fr; }
   .principios li:nth-child(n) { margin-top: 0; }
 }

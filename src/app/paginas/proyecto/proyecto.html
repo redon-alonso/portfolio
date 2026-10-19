@@ -16,7 +16,7 @@
     <figure class="figura">
       @if (p.imagen; as img) {
         <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt" priority sizes="(min-width: 72rem) 72rem, 100vw" />
-      } @else {
+      } @else if (p.slug === 'motor-packing') {
         <div class="ilustracion"><app-ilustracion-packing /></div>
       }
     </figure>
