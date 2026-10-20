@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ArticuloMeta } from '../blog/modelo';
-import { fechaLarga } from '../blog/fecha';
+import { fechaCorta } from '../blog/fecha';
 
 @Component({
   selector: 'app-lista-articulos',
@@ -10,18 +10,22 @@ import { fechaLarga } from '../blog/fecha';
     @if (articulos().length) {
       <ol class="lista" role="list">
         @for (a of articulos(); track a.slug) {
-          <li class="articulo revela">
-            <time [attr.datetime]="a.fecha">{{ fecha(a.fecha) }}</time>
-            <div>
-              <h3><a [routerLink]="['/blog', a.slug]">{{ a.titulo }}</a></h3>
-              <p>{{ a.descripcion }}</p>
-              <p class="meta">
-                {{ a.minutos }} min de lectura
-                @for (e of a.etiquetas; track e) {
-                  <span class="chip">{{ e }}</span>
+          <li class="revela">
+            <a class="fila" [routerLink]="['/blog', a.slug]">
+              <span class="datos">
+                <time [attr.datetime]="a.fecha">{{ fecha(a.fecha) }}</time> · {{ a.minutos }} min
+              </span>
+              <div class="texto">
+                <h3>{{ a.titulo }}</h3>
+                <p class="descripcion">{{ a.descripcion }}</p>
+                @if (conEtiquetas()) {
+                  <span class="chips">
+                    @for (e of a.etiquetas; track e) { <span class="chip">{{ e }}</span> }
+                  </span>
                 }
-              </p>
-            </div>
+              </div>
+              <span class="flecha" aria-hidden="true">↗</span>
+            </a>
           </li>
         }
       </ol>
@@ -30,31 +34,33 @@ import { fechaLarga } from '../blog/fecha';
     }
   `,
   styles: `
-    .lista { list-style: none; padding: 0; border-top: 1px solid var(--c-linea); }
-    .articulo {
-      display: grid;
-      grid-template-columns: 11rem 1fr;
-      gap: var(--e-1) var(--e-3);
-      padding-block: var(--e-3);
-      border-bottom: 1px solid var(--c-linea);
-      position: relative;
+    .lista { padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    li { border-bottom: 1px solid var(--line); }
+    .fila {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px 32px;
+      padding: 32px 8px;
+      transition: padding-left 0.3s, background-color 0.3s;
     }
-    time { font-family: var(--f-mono); font-size: var(--t--1); color: var(--c-suave); padding-top: 0.5rem; }
-    h3 { font-size: var(--t-2); }
-    h3 a { text-decoration: none; }
-    /* Toda la fila es clicable sin anidar enlaces */
-    h3 a::after { content: ''; position: absolute; inset: 0; }
-    .articulo:hover h3 a { color: var(--c-acento); }
-    p { margin-top: 0.5rem; color: var(--c-suave); max-width: 62ch; }
-    .meta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-size: var(--t--1); }
-    .vacio { color: var(--c-suave); }
+    .fila:hover { padding-left: 20px; background: #15171c; color: var(--text); }
+    .datos { flex: 0 0 150px; font-family: var(--f-mono); font-size: 0.8125rem; color: var(--muted); }
+    .texto { flex: 1 1 400px; min-width: 0; }
+    h3 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+    .descripcion { display: block; margin-top: 8px; max-width: 70ch; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+    .texto .chips { margin-top: 14px; }
+    .flecha { font-size: 2rem; line-height: 1; color: var(--accent); transition: transform 0.3s var(--ease); }
+    .fila:hover .flecha { transform: translate(4px, -4px); }
+    .vacio { color: var(--muted); }
     @media (max-width: 40rem) {
-      .articulo { grid-template-columns: 1fr; }
-      time { padding-top: 0; }
+      .fila { gap: 10px; padding-block: 26px; }
+      .flecha { display: none; }
     }
   `,
 })
 export class ListaArticulos {
   readonly articulos = input.required<ArticuloMeta[]>();
-  protected readonly fecha = fechaLarga;
+  readonly conEtiquetas = input(false);
+  protected readonly fecha = fechaCorta;
 }

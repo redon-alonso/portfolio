@@ -1,22 +1,25 @@
 import { Component, computed, DestroyRef, effect, inject, input } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PROYECTOS, SITIO } from '../../datos/perfil';
 import { Seo } from '../../core/seo';
 import { DatosEstructurados } from '../../core/datos-estructurados';
-import { IlustracionPacking } from '../../componentes/ilustracion-packing';
+import { IlustracionProyecto } from '../../componentes/ilustracion-proyecto';
 import NoEncontrada from '../no-encontrada/no-encontrada';
 
 @Component({
   selector: 'app-proyecto',
-  imports: [NgOptimizedImage, RouterLink, IlustracionPacking, NoEncontrada],
+  imports: [RouterLink, IlustracionProyecto, NoEncontrada],
   templateUrl: './proyecto.html',
   styleUrl: './proyecto.css',
 })
 export default class Proyecto {
   readonly slug = input.required<string>();
-  protected readonly proyecto = computed(() => PROYECTOS.find((p) => p.slug === this.slug()));
-  protected readonly otro = computed(() => PROYECTOS.find((p) => p.slug !== this.slug()));
+  protected readonly indice = computed(() => PROYECTOS.findIndex((p) => p.slug === this.slug()));
+  protected readonly proyecto = computed(() => PROYECTOS[this.indice()]);
+  /** El siguiente de la lista; después del último vuelve al primero. */
+  protected readonly otro = computed(() => PROYECTOS[(this.indice() + 1) % PROYECTOS.length]);
+  /** «Motor Packing» → «MotorPacking», como símbolo de la gramática. */
+  protected readonly simbolo = computed(() => this.proyecto()?.nombre.replace(/\s+/g, ''));
 
   constructor() {
     const seo = inject(Seo);

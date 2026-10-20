@@ -5,3 +5,9 @@ export function fechaLarga(iso: string): string {
   const [a, m, d] = iso.split('-').map(Number);
   return `${d} de ${MESES[m - 1]} de ${a}`;
 }
+
+/** "2026-10-06" → "06.10.2026", para las filas del blog. */
+export function fechaCorta(iso: string): string {
+  const [a, m, d] = iso.split('-');
+  return `${d}.${m}.${a}`;
+}

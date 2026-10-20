@@ -1,25 +1,20 @@
-.cabeza { padding-top: var(--e-4); max-width: 50rem; }
-.regla a { text-decoration: none; }
-h1 { margin-top: var(--e-2); font-size: var(--t-3); letter-spacing: -0.02em; }
-.entradilla { margin-top: var(--e-3); font-size: var(--t-1); line-height: 1.45; color: var(--c-suave); max-width: 48ch; }
-.datos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.8rem;
-  margin-top: var(--e-3);
-  padding-bottom: var(--e-3);
-  border-bottom: 1px solid var(--c-linea);
-  font-size: var(--t--1);
-  color: var(--c-suave);
+.cabeza { max-width: 60rem; padding-top: 72px; }
+h1 {
+  margin-top: 14px;
+  font-size: clamp(2.5rem, 1.3rem + 4.4vw, 5.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
 }
-time { font-family: var(--f-mono); }
+h1 em { font-weight: 300; }
+.entradilla { max-width: 52ch; margin-top: 28px; font-size: clamp(1.1875rem, 0.95rem + 0.8vw, 1.4375rem); line-height: 1.45; color: var(--text-2); }
+.datos { margin-top: 28px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.datos time { color: var(--text); }
 
 .cuerpo {
   display: grid;
-  grid-template-columns: minmax(0, 44rem) 1fr;
-  gap: var(--e-4);
-  margin-top: var(--e-4);
+  grid-template-columns: minmax(0, 68ch) minmax(0, 1fr);
+  gap: 64px;
+  margin-top: 56px;
 }
 .prosa { grid-column: 1; grid-row: 1; }
 .indice {
@@ -28,50 +23,61 @@ time { font-family: var(--f-mono); }
   position: sticky;
   top: 6rem;
   align-self: start;
-  font-size: var(--t--1);
+  max-width: 20rem;
+  font-size: 0.875rem;
 }
-.indice ol { list-style: none; padding: 0; border-left: 1.5px solid var(--c-linea); }
-.indice li a { display: block; padding: 0.3rem 0 0.3rem 0.9rem; color: var(--c-suave); text-decoration: none; }
-.indice li a:hover { color: var(--c-acento); }
-.etiqueta {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-family: var(--f-mono);
-  font-size: var(--t--1);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--c-acento);
-}
-.cargando { color: var(--c-suave); }
+.indice ol { padding: 0; list-style: none; border-left: 1px solid var(--line); }
+.indice li a { display: block; padding: 6px 0 6px 14px; color: var(--muted); }
+.indice li a:hover { color: var(--accent); }
+.etiqueta { display: block; margin-bottom: 10px; font-family: var(--f-mono); font-size: 0.8125rem; color: var(--accent); }
+.cargando { color: var(--muted); }
 
 .autor {
-  max-width: 44rem;
-  margin-top: var(--e-4);
-  padding: var(--e-3);
-  border-radius: var(--radio-org);
-  background: var(--c-acento-suave);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 68ch;
+  margin-top: 72px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
 }
-.autor a { font-weight: 600; }
+.autor .etiqueta { margin-bottom: 4px; }
+.autor a { font-weight: 700; }
+.monograma {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--f-mono);
+  font-weight: 700;
+}
 
 .vecinos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--e-3);
-  margin-top: var(--e-4);
-  padding-top: var(--e-3);
-  border-top: 1px solid var(--c-linea);
+  gap: 32px;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
 }
-.vecino { font-family: var(--f-display); font-size: var(--t-1); line-height: 1.2; text-decoration: none; }
-.vecino:hover { color: var(--c-acento); }
+.vecino { font-size: clamp(1.375rem, 1rem + 1vw, 1.875rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+.vecino:hover { color: var(--accent); }
 .derecha { grid-column: 2; text-align: right; }
-.todo { grid-column: 1 / -1; font-weight: 550; color: var(--c-acento); }
+.todo { grid-column: 1 / -1; justify-self: start; font-size: 0.875rem; }
 
-@media (max-width: 60rem) {
-  .cuerpo { grid-template-columns: minmax(0, 1fr); }
-  .indice { position: static; grid-row: 1; grid-column: 1; }
+@media (max-width: 64rem) {
+  .cuerpo { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .indice { position: static; grid-column: 1; grid-row: 1; max-width: none; }
   .prosa { grid-row: 2; }
 }
 @media (max-width: 40rem) {
+  .cabeza { padding-top: 48px; }
   .vecinos { grid-template-columns: 1fr; }
   .derecha { grid-column: 1; text-align: left; }
 }

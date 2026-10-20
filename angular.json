@@ -50,11 +50,8 @@
               }
             ],
             "styles": [
-              "@fontsource/instrument-serif/400.css",
-              "@fontsource/instrument-serif/400-italic.css",
-              "@fontsource-variable/ibm-plex-sans/index.css",
-              "@fontsource/ibm-plex-mono/400.css",
-              "@fontsource/ibm-plex-mono/500.css",
+              "@fontsource-variable/bricolage-grotesque/opsz.css",
+              "@fontsource-variable/jetbrains-mono/index.css",
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
@@ -70,8 +67,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kB",
-                  "maximumError": "10kB"
+                  "maximumWarning": "10kB",
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all"

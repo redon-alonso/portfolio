@@ -17,7 +17,7 @@ export interface Enlace {
 
 export const CONTACTO = {
   github: 'https://github.com/redon-alonso',
-  email: null as string | null, // PENDIENTE: 'tu@correo.com'
+  email: 'redon_alonso@hotmail.com' as string | null,
   linkedin: null as string | null, // PENDIENTE: 'https://www.linkedin.com/in/...'
 };
 
@@ -32,7 +32,7 @@ export const TRAYECTORIA: Etapa[] = [
   {
     periodo: '2026 — hoy',
     puesto: 'Transformación tecnológica y desarrollo interno',
-    lugar: 'Gran empresa',
+    lugar: 'Stay of Business',
     detalle:
       'Empiezo un proyecto nuevo con un doble papel: impulsar el cambio tecnológico desde dentro y desarrollar las herramientas que lo hacen posible.',
   },
@@ -64,12 +64,15 @@ export const FORMACION: Etapa[] = [
 export interface Proyecto {
   slug: string;
   nombre: string;
+  /** Una línea en mono sobre la tarjeta: «01 / lenguajes formales». */
+  area: string;
+  /** Tecnología principal, en la esquina de la tarjeta. */
+  tecnologia: string;
   resumen: string;
   problema: string;
   etiquetas: string[];
   demo: string;
   codigo: string | null;
-  imagen: { src: string; ancho: number; alto: number; alt: string } | null;
   aviso?: string;
   /** Secciones del caso de estudio. Si está vacío, la página indica que está en preparación. */
   secciones: { titulo: string; parrafos: string[]; lista?: string[] }[];
@@ -79,6 +82,8 @@ export const PROYECTOS: Proyecto[] = [
   {
     slug: 'transcriptor',
     nombre: 'Transcriptor',
+    area: 'lenguajes formales',
+    tecnologia: 'Vue 3',
     resumen:
       'Convierte pseudocódigo en diagramas de flujo y calcula el coste del algoritmo —T(n), O, Ω y Θ— para comparar enfoques antes de escribir una línea de código real.',
     problema:
@@ -86,12 +91,6 @@ export const PROYECTOS: Proyecto[] = [
     etiquetas: ['Lenguajes formales', 'Analizador propio', 'Análisis de costes', 'Vue 3', 'Seguridad'],
     demo: 'https://diagramas-inky.vercel.app/',
     codigo: 'https://github.com/redon-alonso/diagramas',
-    imagen: {
-      src: '/img/transcriptor.png',
-      ancho: 1440,
-      alto: 900,
-      alt: 'Transcriptor: editor de pseudocódigo a la izquierda, diagrama de flujo en el centro y análisis de coste Θ(n) a la derecha',
-    },
     secciones: [
       {
         titulo: 'Un lenguaje con su propia gramática',
@@ -130,6 +129,8 @@ export const PROYECTOS: Proyecto[] = [
   {
     slug: 'motor-packing',
     nombre: 'Motor Packing',
+    area: 'optimización 3D',
+    tecnologia: 'Three.js',
     resumen:
       'Calcula cómo cargar los palets en un camión respetando el orden de entrega, la física de la carga y el reparto de peso por ejes, y lo enseña en 3D.',
     problema:
@@ -137,7 +138,6 @@ export const PROYECTOS: Proyecto[] = [
     etiquetas: ['Optimización 3D', 'Heurística Extreme Points', 'Three.js', 'Vue 3', 'Node + PostgreSQL', 'Seguridad'],
     demo: 'https://magic-packing.vercel.app/',
     codigo: null, // El repositorio (redon-alonso/MagicPacking) es privado: sin enlace público.
-    imagen: null, // PENDIENTE: captura de la vista 3D (la demo pide inicio de sesión). Hasta entonces, ilustración.
     aviso: 'La demo requiere usuario y contraseña y el código es privado; puedo enseñarlo en una entrevista.',
     secciones: [
       {
@@ -183,6 +183,8 @@ export const PROYECTOS: Proyecto[] = [
   {
     slug: 'presupuestos-pvc',
     nombre: 'Presupuestos PVC',
+    area: 'modelado de negocio',
+    tecnologia: 'Serverless',
     resumen:
       'Presupuesta ventanas de PVC a medida desde el despiece real: de las medidas al material, del material al coste y del coste al precio, con el margen a la vista.',
     problema:
@@ -190,12 +192,6 @@ export const PROYECTOS: Proyecto[] = [
     etiquetas: ['Modelado de negocio', 'Motor de cálculo', 'Vue 3', 'Serverless', 'Tests'],
     demo: 'https://budgeter200.vercel.app/#/presupuesto/demo',
     codigo: 'https://github.com/redon-alonso/budgeter200',
-    imagen: {
-      src: '/img/presupuestos-pvc.png',
-      ancho: 1440,
-      alto: 900,
-      alt: 'Presupuestos PVC: configurador de una ventana oscilobatiente con su dibujo a escala, coste y precio por unidad, y panel de rentabilidad con beneficio, rebaja y margen',
-    },
     secciones: [
       {
         titulo: 'Del despiece al precio',
@@ -254,4 +250,24 @@ export const PRINCIPIOS: Principio[] = [
     texto:
       'Validar lo que entra, acotar lo que puede crecer y no confiar en lo que no controlo. La seguridad y la robustez se diseñan, no se añaden al final.',
   },
+];
+
+/** Cifras de la portada: el valor grande, el sufijo en color de acento y la explicación. */
+export const CIFRAS: { valor: string; sufijo: string; texto: string }[] = [
+  { valor: '3', sufijo: 'a', texto: 'en producción, cada día' },
+  { valor: '1', sufijo: 'º', texto: 'aseguradora de España como cliente' },
+  { valor: String(PROYECTOS.length), sufijo: '+', texto: 'proyectos propios desplegados' },
+  { valor: 'Θ', sufijo: '(n)', texto: 'antes de escribir una línea' },
+];
+
+/** Marquesina de la portada: temas y símbolos de la gramática, alternados. */
+export const MARQUESINA: { texto: string; simbolo: string }[] = [
+  { texto: 'lenguajes formales', simbolo: '::=' },
+  { texto: 'análisis de sistemas', simbolo: '|' },
+  { texto: 'Vue 3', simbolo: '→' },
+  { texto: 'Three.js', simbolo: '·' },
+  { texto: 'Node + PostgreSQL', simbolo: 'Θ(n)' },
+  { texto: 'serverless', simbolo: '*' },
+  { texto: 'seguridad desde el diseño', simbolo: '+' },
+  { texto: 'analizador propio', simbolo: '::=' },
 ];

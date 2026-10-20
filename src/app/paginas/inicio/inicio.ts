@@ -1,29 +1,34 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CONTACTO, FORMACION, PRINCIPIOS, PROYECTOS, SITIO, TRAYECTORIA } from '../../datos/perfil';
+import { CIFRAS, CONTACTO, FORMACION, MARQUESINA, PRINCIPIOS, PROYECTOS, SITIO, TRAYECTORIA } from '../../datos/perfil';
 import { ARTICULOS } from '../../blog/generado/indice';
 import { Seo } from '../../core/seo';
 import { DatosEstructurados } from '../../core/datos-estructurados';
-import { GramaticaPerfil } from '../../componentes/gramatica-perfil';
-import { IlustracionPacking } from '../../componentes/ilustracion-packing';
+import { TerminalDerivacion } from '../../componentes/terminal-derivacion';
+import { IlustracionProyecto } from '../../componentes/ilustracion-proyecto';
 import { ListaArticulos } from '../../componentes/lista-articulos';
-import { Arista } from '../../componentes/arista';
-import { LineaTiempo } from '../../componentes/linea-tiempo';
 
 @Component({
   selector: 'app-inicio',
-  imports: [NgOptimizedImage, RouterLink, GramaticaPerfil, IlustracionPacking, ListaArticulos, Arista, LineaTiempo],
+  imports: [RouterLink, TerminalDerivacion, IlustracionProyecto, ListaArticulos],
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
 })
 export default class Inicio {
+  protected readonly sitio = SITIO;
   protected readonly proyectos = PROYECTOS;
   /** «Transcriptor | MotorPacking | …»: los nombres como símbolos de la gramática. */
   protected readonly reglaProyectos = PROYECTOS.map((p) => p.nombre.replace(/\s+/g, '')).join(' | ');
+  protected readonly cifras = CIFRAS;
+  protected readonly marquesina = MARQUESINA;
   protected readonly principios = PRINCIPIOS;
-  protected readonly trayectoria = TRAYECTORIA;
-  protected readonly formacion = FORMACION;
+  /** Cada paso del método tiene su tarjeta: acento, clara y oscura. */
+  protected readonly estilosMetodo = ['paso-acento', 'paso-claro', 'paso-oscuro'];
+  protected readonly fasesMetodo = ['modelo →', 'código →', 'producción ✓'];
+  protected readonly grupos = [
+    { nombre: 'experiencia*', etapas: TRAYECTORIA },
+    { nombre: 'formación*', etapas: FORMACION },
+  ];
   protected readonly contacto = CONTACTO;
   protected readonly ultimos = ARTICULOS.slice(0, 3);
 

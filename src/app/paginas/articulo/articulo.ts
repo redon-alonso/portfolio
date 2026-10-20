@@ -22,6 +22,11 @@ export default class Articulo {
   /** La lista está ordenada de más nuevo a más antiguo. */
   protected readonly anterior = computed(() => ARTICULOS[this.posicion() + 1]);
   protected readonly siguiente = computed(() => (this.posicion() > 0 ? ARTICULOS[this.posicion() - 1] : undefined));
+  /** El titular va en dos pesos: la última palabra, en cursiva ligera. */
+  protected readonly titulo = computed(() => {
+    const palabras = (this.meta()?.titulo ?? '').split(' ');
+    return { inicio: palabras.slice(0, -1).join(' '), final: palabras.at(-1) ?? '' };
+  });
 
   private readonly sanitizer = inject(DomSanitizer);
 

@@ -1,132 +1,167 @@
+<!-- ============================ HÉROE ============================ -->
 <section class="heroe envoltorio" aria-labelledby="titulo-inicio">
-  <div class="heroe-texto">
-    <p class="regla"><b>‹perfil›</b> ::= desarrollador web · analista</p>
-    <h1 id="titulo-inicio">
-      <span class="nombre">Víctor Alonso Gómez</span>
-      <span class="lema">Software para problemas que tienen <em>gramática</em>.</span>
-    </h1>
-    <p class="intro">
-      Tres años desarrollando en producción para la mayor aseguradora de España con <strong>Adding Technology</strong>.
-      Desde 2026, transformación tecnológica y desarrollo interno en una gran empresa. Lo que de verdad me mueve:
-      los <strong>lenguajes formales</strong>, <strong>analizar sistemas</strong> y los problemas que no caben en un tutorial.
-    </p>
-    <div class="acciones">
-      <a class="boton" routerLink="/" fragment="proyectos">Ver proyectos <span aria-hidden="true">↓</span></a>
-      <a class="boton secundario" routerLink="/blog">Leer el blog</a>
-    </div>
+  <div class="heroe-etiquetas aparece">
+    <span class="pill"><span class="pulso" aria-hidden="true"></span>2026 · transformación tecnológica</span>
+    <span class="mono">‹perfil› ::= desarrollador web · analista</span>
   </div>
-  <app-gramatica-perfil class="heroe-figura" />
+
+  <h1 id="titulo-inicio" class="heroe-titulo sube">
+    Software para<br />
+    problemas que<br />
+    tienen <em>gramática</em><span class="cursor" aria-hidden="true">_</span>
+  </h1>
+
+  <div class="heroe-cuerpo">
+    <div class="heroe-texto aparece">
+      <p class="intro">
+        Soy <strong>{{ sitio.nombre }}</strong>. Tres años desarrollando en producción para la mayor aseguradora de
+        España con <strong>Adding Technology</strong>. Desde 2026, transformación tecnológica y desarrollo interno en
+        <strong>Stay of Business</strong>. Lo que de verdad me mueve: los lenguajes formales, analizar sistemas y los
+        problemas que no caben en un tutorial.
+      </p>
+      <div class="acciones">
+        <a class="boton acento grande" routerLink="/" fragment="proyectos">Ver proyectos <span aria-hidden="true">↓</span></a>
+        <a class="boton grande" routerLink="/blog">Leer el blog</a>
+      </div>
+    </div>
+    <app-terminal-derivacion class="aparece" />
+  </div>
 </section>
 
-<app-arista />
+<!-- ============================ MARQUESINA ============================ -->
+<div class="marquesina" aria-hidden="true">
+  <div class="pista">
+    @for (vuelta of [1, 2]; track vuelta) {
+      @for (m of marquesina; track $index) {
+        <span>{{ m.texto }}</span><span class="simbolo">{{ m.simbolo }}</span>
+      }
+    }
+  </div>
+</div>
+
+<!-- ============================ CIFRAS ============================ -->
+<section class="envoltorio cifras-seccion" aria-label="En cifras">
+  <dl class="cifras">
+    @for (c of cifras; track c.texto) {
+      <div class="cifra">
+        <dt>{{ c.texto }}</dt>
+        <dd>{{ c.valor }}<span>{{ c.sufijo }}</span></dd>
+      </div>
+    }
+  </dl>
+</section>
 
 <!-- ============================ PROYECTOS ============================ -->
 <section id="proyectos" class="envoltorio seccion" aria-labelledby="titulo-proyectos">
-  <header class="cabeza-seccion">
-    <p class="regla"><b>‹proyectos›</b> ::= {{ reglaProyectos }}</p>
-    <h2 id="titulo-proyectos">Lo que he construido</h2>
+  <header class="cabeza-seccion con-lateral">
+    <div>
+      <p class="regla">‹proyectos› ::= {{ reglaProyectos }}</p>
+      <h2 id="titulo-proyectos" class="titular">Lo que he<br /><em>construido</em></h2>
+    </div>
+    <p class="lateral">Tres problemas con forma rara: un lenguaje, un camión y una ventana.</p>
   </header>
 
-  @for (p of proyectos; track p.slug; let i = $index, par = $even) {
-    <article class="proyecto revela" [class.medios-primero]="par">
-      @if (p.imagen; as img) {
-        <a class="medio captura" [routerLink]="['/proyectos', p.slug]" tabindex="-1" aria-hidden="true">
-          <img [ngSrc]="img.src" [width]="img.ancho" [height]="img.alto" [alt]="img.alt"
-               sizes="(min-width: 64rem) 58vw, 100vw" />
-        </a>
-      } @else if (p.slug === 'motor-packing') {
-        <div class="medio ilustracion"><app-ilustracion-packing /></div>
-      }
-      <div class="proyecto-texto">
-        <p class="num">0{{ i + 1 }}</p>
-        <h3><a [routerLink]="['/proyectos', p.slug]">{{ p.nombre }}</a></h3>
-        <p class="resumen">{{ p.resumen }}</p>
-        @if (!par) { <p class="problema">{{ p.problema }}</p> }
-        <ul class="etiquetas" role="list">
-          @for (e of p.etiquetas; track e) { <li class="chip">{{ e }}</li> }
-        </ul>
-        <p class="enlaces">
-          <a [routerLink]="['/proyectos', p.slug]" class="caso">Caso de estudio <span aria-hidden="true">→</span></a>
-          <a [href]="p.demo" target="_blank" rel="noopener noreferrer">Probarlo</a>
-          @if (p.codigo) {
-            <a [href]="p.codigo" target="_blank" rel="noopener noreferrer">Código</a>
-          }
-        </p>
-      </div>
-    </article>
-  }
+  <div class="bento">
+    @for (p of proyectos; track p.slug; let i = $index, primero = $first) {
+      <article class="tarjeta proyecto revela" [class.destacado]="primero">
+        <div class="proyecto-medio">
+          <app-ilustracion-proyecto [slug]="p.slug" />
+        </div>
+        <div class="proyecto-texto">
+          <p class="proyecto-meta"><span>0{{ i + 1 }} / {{ p.area }}</span><span>{{ p.tecnologia }}</span></p>
+          <h3><a [routerLink]="['/proyectos', p.slug]">{{ p.nombre }}</a></h3>
+          <p class="resumen">{{ p.resumen }}</p>
+          <ul class="chips" role="list">
+            @for (e of p.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+          </ul>
+          <p class="enlaces">
+            <a class="boton claro" [routerLink]="['/proyectos', p.slug]">Caso de estudio <span aria-hidden="true">→</span></a>
+            <a class="boton" [href]="p.demo" target="_blank" rel="noopener noreferrer">Probarlo <span aria-hidden="true">↗</span></a>
+            @if (p.codigo) {
+              <a class="boton" [href]="p.codigo" target="_blank" rel="noopener noreferrer">Código</a>
+            }
+          </p>
+        </div>
+      </article>
+    }
+  </div>
 </section>
 
-<app-arista [espejo]="true" />
-
-<!-- ============================ CÓMO TRABAJO ============================ -->
-<section class="envoltorio seccion" aria-labelledby="titulo-principios">
+<!-- ============================ MÉTODO ============================ -->
+<section id="metodo" class="envoltorio seccion" aria-labelledby="titulo-metodo">
   <header class="cabeza-seccion">
-    <p class="regla"><b>‹método›</b> ::= modelo → código → producción</p>
-    <h2 id="titulo-principios">Cómo trabajo</h2>
+    <p class="regla">‹método› ::= modelo → código → producción</p>
+    <h2 id="titulo-metodo" class="titular">Cómo <em>trabajo</em></h2>
   </header>
-  <ol class="principios" role="list">
+  <ol class="metodo" role="list">
     @for (p of principios; track p.titulo; let i = $index) {
-      <li class="revela">
-        <span class="indice" aria-hidden="true">0{{ i + 1 }}</span>
-        <h3>{{ p.titulo }}</h3>
-        <p>{{ p.texto }}</p>
+      <li class="paso revela" [class]="estilosMetodo[i]">
+        <p class="paso-meta" aria-hidden="true"><span>0{{ i + 1 }}</span><span>{{ fasesMetodo[i] }}</span></p>
+        <div class="paso-texto">
+          <h3>{{ p.titulo }}</h3>
+          <p>{{ p.texto }}</p>
+        </div>
       </li>
     }
   </ol>
 </section>
 
-<app-arista />
-
 <!-- ============================ TRAYECTORIA ============================ -->
-<section id="trayectoria" class="envoltorio seccion" aria-labelledby="titulo-trayectoria">
+<section id="trayectoria" class="envoltorio seccion trayectoria" aria-labelledby="titulo-trayectoria">
   <header class="cabeza-seccion">
-    <p class="regla"><b>‹trayectoria›</b> ::= experiencia* formación*</p>
-    <h2 id="titulo-trayectoria">De dónde vengo</h2>
+    <p class="regla">‹trayectoria› ::= experiencia* formación*</p>
+    <h2 id="titulo-trayectoria" class="titular">De dónde<br /><em>vengo</em></h2>
   </header>
-  <div class="dos-columnas">
-    <div>
-      <h3 class="subtitulo">Experiencia</h3>
-      <app-linea-tiempo [etapas]="trayectoria" />
-    </div>
-    <div>
-      <h3 class="subtitulo">Formación</h3>
-      <app-linea-tiempo [etapas]="formacion" />
-    </div>
+  <div class="etapas">
+    @for (grupo of grupos; track grupo.nombre) {
+      <h3 class="grupo">{{ grupo.nombre }}</h3>
+      <ol role="list">
+        @for (e of grupo.etapas; track e.puesto; let actual = $first) {
+          <li class="etapa revela">
+            <p class="periodo" [class.actual]="actual && grupo.nombre === 'experiencia*'">{{ e.periodo }}</p>
+            <div>
+              <h4>{{ e.puesto }}</h4>
+              <p class="lugar">{{ e.lugar }}</p>
+              <p class="detalle">{{ e.detalle }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    }
   </div>
 </section>
 
-<app-arista [espejo]="true" />
-
 <!-- ============================ BLOG ============================ -->
-<section class="envoltorio seccion" aria-labelledby="titulo-blog">
-  <header class="cabeza-seccion con-accion">
+<section id="blog" class="envoltorio seccion" aria-labelledby="titulo-blog">
+  <header class="cabeza-seccion con-lateral">
     <div>
-      <p class="regla"><b>‹blog›</b> ::= desarrollo+</p>
-      <h2 id="titulo-blog">Escribo sobre lo que construyo</h2>
+      <p class="regla">‹blog› ::= desarrollo+</p>
+      <h2 id="titulo-blog" class="titular">Escribo sobre lo<br />que <em>construyo</em></h2>
     </div>
-    <a routerLink="/blog" class="boton secundario">Todo el blog <span aria-hidden="true">→</span></a>
+    <a routerLink="/blog" class="boton mono">todo el blog <span aria-hidden="true">→</span></a>
   </header>
   <app-lista-articulos [articulos]="ultimos" />
 </section>
 
 <!-- ============================ CONTACTO ============================ -->
-<section id="contacto" class="contacto" aria-labelledby="titulo-contacto">
-  <div class="envoltorio">
-    <p class="regla"><b>‹contacto›</b> ::= problema "·" conversación</p>
-    <h2 id="titulo-contacto">¿Tienes un problema con <em>forma rara</em>?</h2>
-    <p>
-      Me interesan los sistemas que hay que entender antes de tocar: reglas de negocio enrevesadas, lenguajes,
-      optimización o herramientas internas que nadie se atreve a rehacer. Hablemos.
-    </p>
-    <div class="acciones">
-      @if (contacto.email) {
-        <a class="boton invertido" [href]="'mailto:' + contacto.email">Escríbeme</a>
-      }
-      @if (contacto.linkedin) {
-        <a class="boton invertido" [href]="contacto.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      }
-      <a class="boton invertido" [class.secundario]="contacto.email || contacto.linkedin" [href]="contacto.github" target="_blank" rel="noopener noreferrer">GitHub</a>
+<section id="contacto" class="envoltorio seccion" aria-labelledby="titulo-contacto">
+  <div class="contacto">
+    <p class="contacto-regla">‹contacto› ::= problema "·" conversación</p>
+    <h2 id="titulo-contacto">¿Tienes un problema con <em>forma rara?</em></h2>
+    <div class="contacto-pie">
+      <p>
+        Me interesan los sistemas que hay que entender antes de tocar: reglas de negocio enrevesadas, lenguajes,
+        optimización o herramientas internas que nadie se atreve a rehacer.
+      </p>
+      <div class="acciones">
+        <a class="boton grande oscuro" [href]="contacto.github" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        @if (contacto.linkedin) {
+          <a class="boton grande borde-oscuro" [href]="contacto.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        }
+        @if (contacto.email) {
+          <a class="boton grande borde-oscuro" [href]="'mailto:' + contacto.email">{{ contacto.email }}</a>
+        }
+      </div>
     </div>
   </div>
 </section>

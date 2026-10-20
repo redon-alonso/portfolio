@@ -11,22 +11,23 @@ import { ListaArticulos } from '../../componentes/lista-articulos';
   template: `
     <section class="envoltorio">
       <header>
-        <p class="regla"><b>‹blog›</b> ::= desarrollo+</p>
-        <h1>Blog de desarrollos</h1>
+        <p class="regla">‹blog› ::= desarrollo+</p>
+        <h1 class="titular">Blog de<br /><em>desarrollos</em></h1>
         <p class="intro">
           Lo que construyo y por qué: decisiones técnicas, algoritmos, lenguajes y lo que aprendo por el camino.
           También por <a href="/rss.xml">RSS</a>.
         </p>
       </header>
-      <app-lista-articulos [articulos]="articulos" />
+      <app-lista-articulos [articulos]="articulos" [conEtiquetas]="true" />
     </section>
   `,
   styles: `
-    section { padding-top: var(--e-4); }
-    header { margin-bottom: var(--e-4); }
-    h1 { margin-top: var(--e-2); font-size: var(--t-4); letter-spacing: -0.03em; }
-    .intro { margin-top: var(--e-3); max-width: 52ch; font-size: var(--t-1); line-height: 1.45; color: var(--c-suave); }
-    .intro a { color: var(--c-acento); }
+    section { padding-top: 72px; }
+    header { margin-bottom: 56px; }
+    h1 { margin-top: 14px; }
+    .intro { max-width: 52ch; margin-top: 28px; font-size: clamp(1.1875rem, 0.95rem + 0.8vw, 1.4375rem); line-height: 1.45; color: var(--text-2); }
+    .intro a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+    @media (max-width: 40rem) { section { padding-top: 48px; } }
   `,
 })
 export default class Blog {

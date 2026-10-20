@@ -1,22 +1,21 @@
 @if (meta(); as a) {
   <article class="envoltorio">
     <header class="cabeza">
-      <p class="regla"><a routerLink="/blog">‹blog›</a> ::= <b>artículo</b></p>
-      <h1>{{ a.titulo }}</h1>
+      <p class="regla"><a routerLink="/blog">‹blog›</a> ::= artículo</p>
+      <h1>{{ titulo().inicio }} <em>{{ titulo().final }}</em></h1>
       <p class="entradilla">{{ a.descripcion }}</p>
-      <p class="datos">
-        <time [attr.datetime]="a.fecha">{{ fecha(a.fecha) }}</time>
-        <span aria-hidden="true">·</span>
-        <span>{{ a.minutos }} min de lectura</span>
-        @for (e of a.etiquetas; track e) { <span class="chip">{{ e }}</span> }
-      </p>
+      <ul class="chips datos" role="list">
+        <li class="chip"><time [attr.datetime]="a.fecha">{{ fecha(a.fecha) }}</time></li>
+        <li class="chip">{{ a.minutos }} min de lectura</li>
+        @for (e of a.etiquetas; track e) { <li class="chip">{{ e }}</li> }
+      </ul>
     </header>
 
     <div class="cuerpo">
       @if (cuerpo.value(); as c) {
         @if (c.indice.length > 1) {
           <nav class="indice" aria-label="En este artículo">
-            <p class="etiqueta">En este artículo</p>
+            <p class="etiqueta">en este artículo</p>
             <ol>
               @for (h of c.indice; track h.id) {
                 <li><a [href]="'/blog/' + a.slug + '#' + h.id">{{ h.texto }}</a></li>
@@ -31,18 +30,18 @@
     </div>
 
     <aside class="autor">
-      <p class="etiqueta">Escrito por</p>
-      <p><a routerLink="/">Víctor Alonso Gómez</a>, desarrollador web.</p>
+      <span class="monograma" aria-hidden="true">VA</span>
+      <p><span class="etiqueta">escrito por</span><a routerLink="/">Víctor Alonso Gómez</a>, desarrollador web.</p>
     </aside>
 
     <nav class="vecinos" aria-label="Más artículos">
       @if (anterior(); as ant) {
-        <a [routerLink]="['/blog', ant.slug]" class="vecino"><span class="etiqueta">← Anterior</span>{{ ant.titulo }}</a>
+        <a [routerLink]="['/blog', ant.slug]" class="vecino"><span class="etiqueta">← anterior</span>{{ ant.titulo }}</a>
       }
       @if (siguiente(); as sig) {
-        <a [routerLink]="['/blog', sig.slug]" class="vecino derecha"><span class="etiqueta">Siguiente →</span>{{ sig.titulo }}</a>
+        <a [routerLink]="['/blog', sig.slug]" class="vecino derecha"><span class="etiqueta">siguiente →</span>{{ sig.titulo }}</a>
       }
-      <a routerLink="/blog" class="todo">Todos los artículos</a>
+      <a routerLink="/blog" class="boton mono todo">todos los artículos <span aria-hidden="true">→</span></a>
     </nav>
   </article>
 } @else {
