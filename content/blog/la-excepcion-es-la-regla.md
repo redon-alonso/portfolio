@@ -12,13 +12,15 @@ Cuando se estudia la lógica de un negocio aparecen siempre tres capas de trabaj
 - **Las decisiones de los responsables**, el criterio que hay detrás de ese estándar.
 - **El trabajo ocasional**, el que rompe las reglas establecidas.
 
-Las dos primeras se dejan explicar con bastante facilidad. La tercera es la que decide si un programa sirve de verdad.
+Las dos primeras se dejan explicar con bastante facilidad. La tercera es la que decide si un programa sirve de verdad, y está muy ligada a la segunda: **quienes conocen las excepciones son los responsables**. Son ellos los que saben qué pasa el mes que el proveedor no entrega o el día que el pedido no cabe. Por eso no basta con observar el trabajo rutinario; hay que preguntar a quien decide qué se hace cuando la rutina falla.
 
 ## El momento del «pero»
 
 Al descubrir la lógica que hay detrás de las decisiones, todo parece coherente. Hasta que alguien dice **«pero»**.
 
 Ahí la fórmula sencilla, elegante y limpia deja de bastar. El trabajo de días pasa a ser de semanas, el de semanas pasa a ser de meses y los tests unitarios se llenan de lógica anidada. Es fácil verlo como un estorbo, pero es justo al revés: en esos detalles está la diferencia entre **un programa que funciona y un programa que tiene un propósito**. Y ese propósito se construye con las excepciones y con sus propias reglas.
+
+Esa complejidad no es un defecto del código: es la del negocio, que estaba ahí antes de escribir la primera línea. El objetivo no es que desaparezca, sino que esté **ordenada**: que cada excepción tenga su regla con nombre propio, su sitio y sus tests, en lugar de un `if` más dentro de otro.
 
 Que algo ocurra una vez al mes, o una vez al año, no justifica que se quede fuera del código.
 
@@ -39,11 +41,26 @@ El cliente, el usuario o el superior tiende a subestimar la casuística. Calcula
 
 Además, sin necesidad de calcular nada, siempre aparecen situaciones incómodas que hay que resolver. En sistemas operativos existe el **algoritmo del avestruz**: ignorar un problema porque se considera tan poco frecuente que no compensa tratarlo. Puede ser una decisión razonable para un fallo improbable y desconocido. No lo es para un caso **conocido y con una respuesta clara**: ese simplemente se implementa.
 
+## Qué excepciones merecen código
+
+Tratar cada caso como el excepcional no significa programar cada rareza. En la [entrada anterior](/blog/logica-de-negocio-en-el-centro#lo-que-se-hace-a-mano-en-segundos) defendía echar cuentas antes de automatizar, y con las excepciones esas cuentas también se echan. Lo que cambia es qué se mide.
+
+Una excepción merece su regla cuando cumple dos condiciones:
+
+- **Es conocida.** Alguien ya sabe que ocurre, aunque sea una vez al año.
+- **Tiene una respuesta clara.** Quien la vive puede explicar qué se hace, sin que cada vez sea una decisión nueva.
+
+En ese caso, la frecuencia deja de ser el argumento. Lo que pesa es **lo que cuesta no tenerla**: el error que se propaga, el proceso que se bloquea o los datos que cada persona resuelve a su manera. Un caso que ocurre dos veces al año pero deja los datos incoherentes durante meses cuesta mucho más que los segundos que se ahorran sin programarlo.
+
+Lo que no es conocido, o no tiene todavía una respuesta clara, no se adivina. Pero tampoco se ignora: el programa tiene que **reconocer que no sabe resolverlo**, detenerse en ese punto y avisar, en lugar de improvisar una salida. Cuando ese caso se repita y alguien decida cómo tratarlo, pasará a ser una excepción conocida y tendrá su regla.
+
 ## Un camión más
 
 Hace poco, después de discutir la estructura de un proceso de carga y aplicarlo, alguien comentó: «Esto está muy bien, porque además solo hay que calcular más de un camión una o dos veces al año». Ese caso no estaba contemplado.
 
 Mi pregunta fue: **«¿Y cómo piensas aplicar el proceso ese día, si no está en la lógica interna?»**. La respuesta fue sincera: «No lo sé. Cuando llegue, separo el pedido y ya veré».
+
+Ese «ya veré» es el problema. El día que llegan dos camiones, cada persona divide el pedido a su manera: uno por orden de entrega, otro por peso, otro como le quepa. El programa calcula cada mitad sin saber que forman parte de la misma carga, así que el orden de entrega y el reparto de peso dejan de tener sentido en conjunto. Y meses después nadie sabe explicar por qué dos cargas iguales se resolvieron de forma distinta.
 
 Al final, resolverlo fue sencillo:
 
@@ -67,4 +84,4 @@ Un programa no se debe juzgar por la complejidad de su caso principal, sino por 
 
 Cuanto más claro le quede al cliente que su criterio se dedica a su trabajo, y no a improvisar ante datos que no cuadran, un stock que falta o un caso que nadie previó, más fiable será el resultado y menos problemas tendrán quienes usan el programa.
 
-La excepción no es el borde del problema. Muchas veces es el problema.
+Por eso **la excepción es la regla**, en los dos sentidos. Es la norma, porque en cualquier negocio real las excepciones no son raras: siempre aparece un «pero». Y es una regla, porque cada excepción conocida debe acabar escrita como una más, con el mismo rigor que el caso principal. La excepción no es el borde del problema. Muchas veces es el problema.
