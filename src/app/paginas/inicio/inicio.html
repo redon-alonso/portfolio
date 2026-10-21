@@ -58,12 +58,13 @@
       <p class="regla">‹proyectos› ::= {{ reglaProyectos }}</p>
       <h2 id="titulo-proyectos" class="titular">Lo que he<br /><em>construido</em></h2>
     </div>
-    <p class="lateral">Tres problemas con forma rara: un lenguaje, un camión y una ventana.</p>
+    <p class="lateral">Cuatro problemas con forma rara: un lenguaje, un camión, una ventana y un calendario.</p>
   </header>
 
   <div class="bento">
-    @for (p of proyectos; track p.slug; let i = $index, primero = $first) {
-      <article class="tarjeta proyecto revela" [class.destacado]="primero">
+    @for (p of proyectos; track p.slug; let i = $index, primero = $first, ultimo = $last) {
+      <!-- Si el último se queda solo en su fila, ocupa el ancho entero como el primero, con la ilustración al otro lado -->
+      <article class="tarjeta proyecto revela" [class.destacado]="primero || (ultimo && i % 2 === 1)" [class.invertido]="!primero && ultimo && i % 2 === 1">
         <div class="proyecto-medio">
           <app-ilustracion-proyecto [slug]="p.slug" />
         </div>

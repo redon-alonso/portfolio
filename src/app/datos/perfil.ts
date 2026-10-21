@@ -227,6 +227,61 @@ export const PROYECTOS: Proyecto[] = [
       },
     ],
   },
+  {
+    slug: 'saturno',
+    nombre: 'Saturno',
+    area: 'reglas de negocio',
+    tecnologia: 'Node + PostgreSQL',
+    resumen:
+      'Gestiona las ausencias de una plantilla —vacaciones, asuntos propios, médico y teletrabajo— con un calendario por sección. Se llama como el dios romano de los ciclos y el tiempo.',
+    problema:
+      'Pedir vacaciones parece un formulario, pero detrás hay un convenio: días que se generan día a día y se disfrutan al ciclo siguiente, anticipos, bajas a mitad de unas vacaciones, festivos que cambian cada año y una cadena de jefes que decide quién aprueba a quién.',
+    etiquetas: ['Reglas de negocio', 'Ciclos y devengo', 'Jerarquía de aprobación', 'Vue 3', 'Express + PostgreSQL', 'Tests'],
+    demo: 'https://saturno-eight.vercel.app',
+    codigo: 'https://github.com/redon-alonso/saturno',
+    aviso: 'La aplicación requiere iniciar sesión.',
+    secciones: [
+      {
+        titulo: 'El tiempo tiene reglas',
+        parrafos: [
+          'El ciclo va del 1 de septiembre al 31 de agosto. Las vacaciones se generan día a día, proporcionales a los días contratado dentro del ciclo (365 o 366), y no se pueden pedir hasta el ciclo siguiente: lo del ciclo en curso se enseña «generándose». Los días no caducan, así que el saldo es una bolsa común: inicial, más lo generado en los ciclos cerrados, más los ajustes, menos lo aprobado y lo pendiente.',
+          'Por dentro se guardan los decimales, porque cuentan para el finiquito, pero al trabajador solo se le deja pedir días enteros: con 25,89 puede pedir 25 y los 0,89 pasan al ciclo siguiente. Las vacaciones se cuentan en días naturales; los asuntos propios, el médico y el teletrabajo, en laborables, descontando los festivos.',
+        ],
+      },
+      {
+        titulo: 'Las excepciones también son reglas',
+        parrafos: [
+          'Lo interesante está en los casos que se salen de lo normal, y cada uno tiene su regla explícita en lugar de un ajuste a mano.',
+        ],
+        lista: [
+          'Anticipo: si lo consolidado no llega, se pueden pedir días a cuenta de lo generado hasta la fecha de inicio. La solicitud llega al jefe marcada y el saldo queda en negativo hasta que el ciclo se consolida, sin dejar deudas.',
+          'Interrumpir: un jefe puede recortar unas vacaciones aprobadas que no han terminado; el resto vuelve al saldo y queda constancia de quién, por qué y hasta cuándo.',
+          'Baja: las ausencias que la abarcan se interrumpen ese día y las posteriores se anulan.',
+          'Por horas: dos horas de una jornada de ocho descuentan 0,25 días, y varias el mismo día si no se solapan.',
+        ],
+      },
+      {
+        titulo: 'Quién aprueba a quién',
+        parrafos: [
+          'Las secciones forman una jerarquía: cada una puede depender de otra. A un trabajador le aprueba el jefe de su sección; a un jefe, el de la sección superior; si en un nivel no hay jefe se sube al siguiente y, arriba del todo, deciden los administradores. Toda esa lógica vive en un único módulo que usan la bandeja de revisión, las decisiones y el calendario, y que protege de ciclos en el organigrama.',
+          'La visibilidad sigue la misma estructura: cada sección ve a los suyos y a los jefes que dependen de ella. En los tipos marcados como privados, como el médico, los compañeros solo ven «Ausencia», y los comentarios nunca les llegan.',
+        ],
+      },
+      {
+        titulo: 'Cómo está construido',
+        parrafos: [
+          'Vue 3 con Vite y sin frameworks de interfaz: el cliente pesa unos 45 KB comprimido. La API es Express 5 sobre PostgreSQL, y en Vercel la misma aplicación se despliega como función, con una CSP estricta y cabeceras de seguridad. La regla de devengo está en un módulo compartido, así que la ficha de usuario enseña una vista previa calculada exactamente igual que el saldo del servidor.',
+          'La sesión es un JWT que se verifica recargando el usuario en cada petición, para que un cambio de rol o una baja surtan efecto al momento. Veinte tests con node:test cubren ciclos, prorrateo, bisiestos, bajas, cómputo natural y laborable y el organigrama.',
+        ],
+      },
+      {
+        titulo: 'Festivos con criterio',
+        parrafos: [
+          'Los festivos no se inventan: para los años con calendario oficial incluido se propone la lista del decreto autonómico y los locales, con la fuente citada. Para los demás se consulta una API externa, pero solo vienen marcados los que no cambian; el resto llega sin marcar y con «verificar». Nada se guarda hasta que el administrador lo confirma.',
+        ],
+      },
+    ],
+  },
 ];
 
 export interface Principio {

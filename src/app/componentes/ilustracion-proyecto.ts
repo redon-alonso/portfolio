@@ -77,6 +77,21 @@ import { Component, input } from '@angular/core';
           <rect class="relleno-acento" x="226" y="164" width="24" height="8" rx="4" />
         </svg>
       }
+      @case ('saturno') {
+        <svg viewBox="0 0 360 200" focusable="false">
+          <text class="mono texto-tenue" x="10" y="22" font-size="11">septiembre · ciclo 26/27</text>
+          @for (d of dias; track $index) {
+            <rect [attr.x]="d.x" [attr.y]="d.y" width="26" height="20" rx="4" [class]="d.clase" />
+          }
+          <circle class="tinta" cx="296" cy="64" r="20" />
+          <ellipse class="acento" cx="296" cy="64" rx="42" ry="9" transform="rotate(-18 296 64)" />
+          <g class="mono" font-size="11">
+            <text class="texto-tenue" x="250" y="124">saldo</text>
+            <text class="texto-tinta" x="250" y="142">25,89 días</text>
+            <text class="texto-tenue" x="250" y="172">disfrutable · 25</text>
+          </g>
+        </svg>
+      }
     }
   `,
   styles: `
@@ -86,7 +101,10 @@ import { Component, input } from '@angular/core';
     svg.ancha { max-width: 460px; }
     text { font-family: var(--f-mono); }
     text[font-weight] { font-family: var(--f-texto); }
-    path, rect, polygon { fill: none; stroke-width: 1.5; }
+    path, rect, polygon, circle, ellipse { fill: none; stroke-width: 1.5; }
+    .dia { stroke: var(--line-strong); stroke-width: 1; }
+    .finde { fill: var(--line-soft); stroke: none; }
+    .pendiente { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 3 3; }
     .tinta { stroke: var(--text); }
     .acento { stroke: var(--accent); }
     .tenue { stroke: var(--line-hover); }
@@ -104,4 +122,11 @@ import { Component, input } from '@angular/core';
 })
 export class IlustracionProyecto {
   readonly slug = input.required<string>();
+
+  /** Saturno: cinco semanas de lunes a domingo, con una semana de vacaciones aprobada y un día pendiente. */
+  protected readonly dias = Array.from({ length: 35 }, (_, d) => ({
+    x: 10 + (d % 7) * 30,
+    y: 36 + Math.floor(d / 7) * 26,
+    clase: d >= 14 && d <= 18 ? 'relleno-acento' : d % 7 >= 5 ? 'finde' : d === 24 ? 'pendiente' : 'dia',
+  }));
 }

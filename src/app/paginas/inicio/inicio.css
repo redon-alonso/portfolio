@@ -118,6 +118,8 @@
 .destacado .proyecto-texto { flex: 1 1 440px; gap: 22px; padding: 36px; }
 .destacado h3 { font-size: clamp(2.5rem, 1.5rem + 3vw, 4.5rem); line-height: 0.95; letter-spacing: -0.035em; }
 .destacado .resumen { max-width: 520px; font-size: 1.1875rem; }
+.destacado.invertido { flex-direction: row; }
+.destacado.invertido .proyecto-medio { border-left: 0; border-right: 1px solid var(--line); }
 
 /* ---------- Método ---------- */
 .metodo {
@@ -188,10 +190,11 @@ ol + .grupo { margin-top: 36px; }
 
 /* Cuando las dos mitades del destacado ya no caben en fila, se apilan como las otras tarjetas */
 @media (max-width: 60rem) {
-  .destacado { flex-direction: column; }
+  .destacado, .destacado.invertido { flex-direction: column; }
   .destacado .proyecto-medio,
   .destacado .proyecto-texto { flex: none; }
-  .destacado .proyecto-medio { min-height: 280px; border-left: 0; border-bottom: 1px solid var(--line); }
+  .destacado .proyecto-medio,
+  .destacado.invertido .proyecto-medio { min-height: 280px; border-inline: 0; border-bottom: 1px solid var(--line); }
 }
 
 @media (max-width: 40rem) {

@@ -27,9 +27,9 @@ const PASOS = [
       }
     </ol>
     <div class="pie">
-      <span>pulsa para derivar mi perfil</span>
+      <span>{{ terminado() ? 'pulsa para verla paso a paso' : 'pulsa para seguir derivando' }}</span>
       <button type="button" class="boton acento" (click)="avanzar()">
-        {{ terminado() ? '↺ reiniciar' : 'derivar ⇒' }}
+        {{ terminado() ? '↺ derivar paso a paso' : 'derivar ⇒' }}
       </button>
     </div>
   `,
@@ -76,7 +76,8 @@ const PASOS = [
 })
 export class TerminalDerivacion {
   protected readonly ultimo = PASOS.length - 1;
-  protected readonly paso = signal(0);
+  /** Empieza con la derivación completa (también en el HTML prerenderizado); al pulsar, vuelve al primer paso. */
+  protected readonly paso = signal(PASOS.length - 1);
   protected readonly visibles = computed(() => PASOS.slice(0, this.paso() + 1));
   protected readonly terminado = computed(() => this.paso() >= this.ultimo);
 
