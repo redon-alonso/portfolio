@@ -1,0 +1,12 @@
+Paradigma: Escalabilidad.
+
+Cuando funciona en local y no funciona en producción.
+
+Una de las mayores pesadillas de todo desarollador es estar semanas basándote en datos acotados, un entorno familiar y seguro, pasar todas las pruebas, tener bien la lógica de negocio, sentir que has cumplido, preproducción da el visto bueno y en producción resulta que la volumetría lo rompe todo. has hecho bien todo, has respondido a la necesidad, la funcionalidad es eficiente, el evolutivo ha visto la luz verde y faltó solamente un pequeño gran detalle, comprobar si la solución admitía la volumetría real de negocio. 
+
+No ocurre siempre, muchas veces el entorno familiar y acotado quita fricción y te hace centrarte en cosas importantes sin que la redundancía de los registros te moleste, pero cuando el registro en si mismo deja de ser un numero y es peso las cosas cambian, y como no siempre es un enemigo visible, lo pasamos por alto. Lo peor de no tenerlo presente todas las veces que se inicia un proyecto es que cuando ves el problema es tan grande que el sobrecoste es irreversible. 
+
+Por tanto lo mejor es tener a tu enemigo lo mas cerca posible, comprobar el volumen de lo que acontece el evolutivo o el cambio y una vez se tiene claro y se ha comprobado que la solución es capaz de mover al monstruo entonces trabajar con la tranquilidad de que al menos ese monstruo no aparece cuando todo parece terminado, en una ocasión, justo antes de dar por válido un evolutivo, con frontal refinado y el backend funcionando, una compañera y amiga me pregunto si había probado las consultas en producción, le dije que no, que iban bien en desarollo, y me explicó la diferencia de registros a tratar, del orden de un millón de diferencia, y el monstruo demostró ser enorme. La consulta se bloqueaba, no se creaban los cambios, nada iba a salir adelante en producción, se cambió la solución para no sobrecargar la búsqueda, cambiar el índice y poder retocar lo mínimo posible para que proyecto saliese adelante, además gracias a eso se podía mover a decenas de millones de registros, dando la seguridad de escalabilidad que se necesita. 
+
+Saber algo y sufrir algo son dos cosas muy distintas, uno puede leer mucho sobre la improtancía del tratamiento de datos y nunca ver un error tan grande y claro como un elefante en una cacharrería, pero cuando el elefante te embiste varias veces lo buscas incluso cuando es un pequeño ratón. 
+
